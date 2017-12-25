@@ -1,8 +1,9 @@
 apply plugin: 'java'
 
-version = 0.3
+version = 0.4
 
 sourceCompatibility = 1.6
+targetCompatibility = 1.6
 
 // change the default main and test source directories(src/main/java and src/test/java):
 sourceSets {
@@ -28,4 +29,30 @@ jar {
     manifest {
         attributes 'Main-Class': 'com.manning.gia.todo.ToDoApp'
     }
+}
+
+// 自定义任务
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'com.manning.gia.todo.ToDoApp',
+                'Implementation-Title': 'Gradle Fat Jar File Example',
+                'Implementation-Version': version
+    }
+    baseName = "$project.name-all"
+    from {
+        configurations.compile.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    with jar
+}
+
+// 如果项目有依赖项，Gradle要求至少定义一个仓库
+repositories {
+    jcenter()
+}
+
+
+dependencies {
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
 }
