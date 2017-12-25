@@ -7,7 +7,7 @@ gradle build
 ```
 After a while, you can execute:
 ```cmd
-java -cp build/classes/java/main com.manning.gia.todo.ToDoApp
+java -jar build/libs/todo-app-0.2.jar
 ```
 
 That's all.
