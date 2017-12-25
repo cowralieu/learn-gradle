@@ -1,8 +1,27 @@
 apply plugin: 'java'
 
-version = 0.2
+version = 0.3
 
 sourceCompatibility = 1.6
+
+// change the default main and test source directories(src/main/java and src/test/java):
+sourceSets {
+    main {
+        java {
+            // The value is a List of String
+            srcDirs = ['src']
+        }
+    }
+    test {
+        java {
+            // The value is a List of String
+            srcDirs = ['test']
+        }
+    }
+}
+
+// change the default build out directory(build):
+buildDir = 'out'
 
 // 将 Main-Class 头添加到 JAR 文件的代码清单中
 jar {
