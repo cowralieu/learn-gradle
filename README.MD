@@ -1,13 +1,13 @@
 # How to use this project
 
-## build the project
 Under the root path of the project, execute the following command:
 ```cmd
+gradle clean
 gradle build
 ```
 After a while, you can execute:
 ```cmd
-java -jar build/libs/todo-app-0.2.jar
+java -jar out/libs/todo-app-0.3.jar
 ```
 
 That's all.
