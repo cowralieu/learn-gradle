@@ -1,51 +1,12 @@
-apply plugin: 'java'
+apply plugin: 'war'
 
-version = 0.4
+version = 0.5
 
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
 
-// change the default main and test source directories(src/main/java and src/test/java):
-sourceSets {
-    main {
-        java {
-            // The value is a List of String
-            srcDirs = ['src']
-        }
-    }
-    test {
-        java {
-            // The value is a List of String
-            srcDirs = ['test']
-        }
-    }
-}
-
 // change the default build out directory(build):
 buildDir = 'out'
-
-// 将 Main-Class 头添加到 JAR 文件的代码清单中
-jar {
-    manifest {
-        attributes 'Main-Class': 'com.manning.gia.todo.ToDoApp'
-    }
-}
-
-// 自定义任务
-task fatJar(type: Jar) {
-    manifest {
-        attributes 'Main-Class': 'com.manning.gia.todo.ToDoApp',
-                'Implementation-Title': 'Gradle Fat Jar File Example',
-                'Implementation-Version': version
-    }
-    baseName = "$project.name-all"
-    from {
-        configurations.compile.collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
-    }
-    with jar
-}
 
 // 如果项目有依赖项，Gradle要求至少定义一个仓库
 repositories {
@@ -54,5 +15,10 @@ repositories {
 
 
 dependencies {
+    // 编译和运行时都需要（打包进 $WAR_ROOT/WEB-INF/lib）
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+    // 编译时需要单运行时由容器提供的（打包时不包含）：
+    providedCompile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
+    // 编译时不需要，运行时需要（打包进 $WAR_ROOT/WEB-INF/lib）
+    runtime group: 'javax.servlet', name: 'jstl', version: '1.1.2'
 }
