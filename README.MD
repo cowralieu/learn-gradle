@@ -3,11 +3,11 @@
 Under the root path of the project, execute the following command:
 ```cmd
 gradle clean
-gradle fatJar
+gradle build
 ```
 After a while, you can execute:
 ```cmd
-java -jar out/libs/todo-app-all-0.4.jar
+%JAVA_HOME%/bin/jar -tf out/libs/todo-app-0.5.war
 ```
 
 That's all.
