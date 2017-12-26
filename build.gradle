@@ -1,12 +1,22 @@
 apply plugin: 'war'
 
-version = 0.5
+version = 0.6
 
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
 
 // change the default build out directory(build):
 buildDir = 'out'
+
+// change the default web app directory(default is src/main/webapp):
+webAppDirName = 'webfiles'
+
+// copy content from the static folder to the root of war file
+war {
+    from('static') {
+        into 'static'
+    }
+}
 
 // 如果项目有依赖项，Gradle要求至少定义一个仓库
 repositories {
