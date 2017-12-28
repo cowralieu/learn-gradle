@@ -1,6 +1,6 @@
 apply plugin: 'war'
 
-version = 0.6
+version = 0.7
 
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
@@ -18,11 +18,17 @@ war {
     }
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.4.1'
+    // 公网的gradle分发地址可能并不适合企业级开发，此时可通过下面的属性指定
+//    distributionUrl = 'http://...'
+    distributionPath = 'gradle-dists'
+}
+
 // 如果项目有依赖项，Gradle要求至少定义一个仓库
 repositories {
     jcenter()
 }
-
 
 dependencies {
     // 编译和运行时都需要（打包进 $WAR_ROOT/WEB-INF/lib）
@@ -30,5 +36,5 @@ dependencies {
     // 编译时需要单运行时由容器提供的（打包时不包含）：
     providedCompile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
     // 编译时不需要，运行时需要（打包进 $WAR_ROOT/WEB-INF/lib）
-    runtime group: 'javax.servlet', name: 'jstl', version: '1.1.2'
+    runtime group: 'javax.servlet', name: 'jstl', version: '1.2'
 }
